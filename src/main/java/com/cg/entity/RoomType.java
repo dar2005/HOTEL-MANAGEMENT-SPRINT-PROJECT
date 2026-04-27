@@ -1,3 +1,4 @@
+package com.cg.entity;
 import jakarta.persistence.*;
 import java.util.List;
 

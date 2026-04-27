@@ -10,6 +10,14 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentId;
+    
+    private Integer reservationId;
+
+    private Double amount;
+
+    private LocalDate paymentDate;
+
+    private String paymentStatus;
 
     public Integer getPaymentId() {
 		return paymentId;
@@ -51,12 +59,6 @@ public class Payment {
 		this.paymentStatus = paymentStatus;
 	}
 
-	private Integer reservationId;
-
-    private Double amount;
-
-    private LocalDate paymentDate;
-
-    private String paymentStatus;
+	
 
 }
