@@ -5,9 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "amenity")
 public class Amenity {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
     private Integer amenityId;
 
     private String name;

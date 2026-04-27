@@ -7,7 +7,6 @@ import java.util.List;
 public class RoomType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomTypeId;
 
     private String typeName;
@@ -19,7 +18,6 @@ public class RoomType {
     private List<Room> rooms;
 
     public RoomType() {}
-//Added comment
     
     public Long getRoomTypeId() { return roomTypeId; }
     public void setRoomTypeId(Long roomTypeId) { this.roomTypeId = roomTypeId; }

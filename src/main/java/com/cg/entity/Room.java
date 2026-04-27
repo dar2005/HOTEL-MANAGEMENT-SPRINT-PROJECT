@@ -18,7 +18,6 @@ import jakarta.persistence.Table;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
 
     private int roomNumber;
