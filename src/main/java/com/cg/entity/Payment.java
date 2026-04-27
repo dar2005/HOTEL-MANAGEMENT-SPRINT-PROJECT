@@ -59,5 +59,4 @@ public class Payment {
 
     private String paymentStatus;
 
-    // Getters and Setters
 }
