@@ -9,44 +9,37 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private Long reviewId;
+    private Integer reviewId;
 
-    @Column(name = "rating")
-    private int rating;
+    private Integer reservationId;
 
-    @Column(name = "comment")
+    private Integer rating;
+
     private String comment;
-
-    @Column(name = "review_date")
+    
     private LocalDate reviewDate;
 
-    
-    @ManyToOne
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
-
-    
-    public Review() {}
-
-    public Review(int rating, String comment, LocalDate reviewDate, Reservation reservation) {
-        this.rating = rating;
-        this.comment = comment;
-        this.reviewDate = reviewDate;
-        this.reservation = reservation;
-    }
-
-    
-
-    public Long getReviewId() {
+    public Integer getReviewId() {
         return reviewId;
     }
 
-    public int getRating() {
+    public void setReviewId(Integer reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    public Integer getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Integer reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -64,13 +57,5 @@ public class Review {
 
     public void setReviewDate(LocalDate reviewDate) {
         this.reviewDate = reviewDate;
-    }
-
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
     }
 }
