@@ -7,11 +7,31 @@ import jakarta.persistence.*;
 public class Amenity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer amenityId;
 
     private String name;
     private String description;
 
-    // Getters and Setters
+
+    public Integer getAmenityId() {
+		return amenityId;
+	}
+	public void setAmenityId(Integer amenityId) {
+		this.amenityId = amenityId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+
+
 }

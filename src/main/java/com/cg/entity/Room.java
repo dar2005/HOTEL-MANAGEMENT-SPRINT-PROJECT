@@ -1,5 +1,7 @@
 package com.cg.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +18,6 @@ import jakarta.persistence.Table;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
 
     private int roomNumber;
