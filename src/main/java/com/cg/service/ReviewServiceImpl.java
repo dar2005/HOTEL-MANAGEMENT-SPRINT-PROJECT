@@ -9,6 +9,7 @@ import com.cg.repo.ReviewRepository;
 import com.cg.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.cg.exception.ResourceNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -51,8 +52,9 @@ public class ReviewServiceImpl implements ReviewService {
  
     @Override
     public ReviewResponseDTO getReviewById(Long id) {
-        Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Review not found"));
+
+        Review review = reviewRepository.findById(id.intValue())
+                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
 
         return mapToDTO(review);
     }
@@ -61,8 +63,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewResponseDTO updateReview(Long id, ReviewRequestDTO dto) {
 
-        Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Review not found"));
+        Review review = reviewRepository.findById(id.intValue())
+                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
 
         review.setRating(dto.getRating());
         review.setComment(dto.getComment());
@@ -73,7 +75,12 @@ public class ReviewServiceImpl implements ReviewService {
    
     @Override
     public String deleteReview(Long id) {
-        reviewRepository.deleteById(id);
+
+        Review review = reviewRepository.findById(id.intValue())
+                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
+
+        reviewRepository.delete(review);
+
         return "Review deleted successfully";
     }
 
