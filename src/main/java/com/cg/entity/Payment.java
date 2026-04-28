@@ -9,9 +9,9 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paymentId;
+    private Long paymentId;
     
-    private Integer reservationId;
+    private Long reservationId;
 
     private Double amount;
 
@@ -19,19 +19,19 @@ public class Payment {
 
     private String paymentStatus;
 
-    public Integer getPaymentId() {
+    public Long getPaymentId() {
 		return paymentId;
 	}
 
-	public void setPaymentId(Integer paymentId) {
+	public void setPaymentId(Long paymentId) {
 		this.paymentId = paymentId;
 	}
 
-	public Integer getReservationId() {
+	public Long getReservationId() {
 		return reservationId;
 	}
 
-	public void setReservationId(Integer reservationId) {
+	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
 	}
 
