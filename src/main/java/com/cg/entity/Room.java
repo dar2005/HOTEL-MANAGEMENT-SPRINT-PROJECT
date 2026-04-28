@@ -3,6 +3,8 @@ package com.cg.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -24,6 +26,7 @@ public class Room {
     private RoomType roomType;
     
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
         name = "room_amenity",
         joinColumns = @JoinColumn(name = "room_id"),
@@ -49,7 +52,7 @@ public class Room {
         this.roomType = roomType;
     }
 
-    // Getters & Setters
+ 
     public Long getRoomId() { return roomId; }
     public void setRoomId(Long roomId) { this.roomId = roomId; }
 

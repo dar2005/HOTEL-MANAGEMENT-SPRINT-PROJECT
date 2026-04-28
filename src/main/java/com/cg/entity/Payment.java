@@ -3,6 +3,8 @@ package com.cg.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "payment")
 public class Payment {
@@ -11,6 +13,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
     
+    @Column(name = "reservation_id", insertable = false, updatable = false)
     private Long reservationId;
 
     private Double amount;
@@ -21,6 +24,7 @@ public class Payment {
     
     @ManyToOne
     @JoinColumn(name = "reservation_id")
+    @JsonIgnore
     private Reservation reservation;
     
     public Payment() {}

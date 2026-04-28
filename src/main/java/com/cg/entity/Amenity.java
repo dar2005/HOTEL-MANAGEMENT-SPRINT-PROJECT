@@ -3,6 +3,8 @@ package com.cg.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +18,7 @@ public class Amenity {
     private String description;
     
     @ManyToMany(mappedBy = "amenities")
+    @JsonIgnore
     private List<Room> rooms = new ArrayList<>();
 
     public List<Room> getRooms() {

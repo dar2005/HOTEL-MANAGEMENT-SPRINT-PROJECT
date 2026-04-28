@@ -3,6 +3,8 @@ package com.cg.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "hotel")
 public class Hotel {
@@ -30,8 +32,9 @@ public class Hotel {
 		this.description = description;
 		this.amenities = amenities;
 	}
-
+    
 	@ManyToMany
+	@JsonIgnore
     @JoinTable(
             name = "hotel_amenity",
             joinColumns = @JoinColumn(name = "hotel_id"),
