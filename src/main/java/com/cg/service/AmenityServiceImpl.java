@@ -28,6 +28,7 @@ public class AmenityServiceImpl implements AmenityService {
     public AmenityResponseDTO createAmenity(AmenityRequestDTO dto) {
 
         Amenity amenity = new Amenity();
+        amenity.setAmenityId(dto.getAmenityId());
         amenity.setName(dto.getName());
         amenity.setDescription(dto.getDescription());
 

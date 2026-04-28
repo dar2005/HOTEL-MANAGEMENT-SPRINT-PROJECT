@@ -13,6 +13,9 @@ public class Payment {
 
     private Double amount;
 
+    @Column(name = "reservation_id", insertable = false, updatable = false)
+    private Long reservationId;
+
     private LocalDate paymentDate;
 
     private String paymentStatus;
@@ -37,6 +40,14 @@ public class Payment {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 
     public LocalDate getPaymentDate() {
