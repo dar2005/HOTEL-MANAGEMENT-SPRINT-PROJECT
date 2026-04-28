@@ -1,14 +1,8 @@
 package com.cg.service;
 
-<<<<<<< HEAD
-public class ReservationServiceImpl {
-
-}
-=======
 import com.cg.entity.Reservation;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.repo.ReservationRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,16 +28,14 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation getReservationById(Long id) {
         return reservationRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Reservation not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
     }
 
     @Override
     public Reservation updateReservation(Long id, Reservation reservation) {
 
         Reservation oldReservation = reservationRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Reservation not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
 
         oldReservation.setGuestName(reservation.getGuestName());
         oldReservation.setGuestEmail(reservation.getGuestEmail());
@@ -57,10 +49,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void deleteReservation(Long id) {
-
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Reservation not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
 
         reservationRepository.delete(reservation);
     }
@@ -90,4 +80,3 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.existsById(id);
     }
 }
->>>>>>> main
