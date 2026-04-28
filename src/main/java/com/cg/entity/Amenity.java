@@ -1,5 +1,10 @@
 package com.cg.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -7,16 +12,27 @@ import jakarta.persistence.*;
 public class Amenity {
 
     @Id
-    private Integer amenityId;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long amenityId;
 
     private String name;
     private String description;
+    
+    @ManyToMany(mappedBy = "amenities")
+    @JsonIgnore
+    private List<Room> rooms = new ArrayList<>();
 
-
-    public Integer getAmenityId() {
+    public List<Room> getRooms() {
+		return rooms;
+	}
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	public Amenity() {}
+    public Long getAmenityId() {
 		return amenityId;
 	}
-	public void setAmenityId(Integer amenityId) {
+	public void setAmenityId(Long amenityId) {
 		this.amenityId = amenityId;
 	}
 	public String getName() {

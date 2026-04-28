@@ -8,22 +8,31 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
-    private Integer paymentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long paymentId;
+    
+//    private Long reservationId;
+
+    private Double amount;
     
     @Column(name = "reservation_id", insertable = false, updatable = false)
     private Long reservationId;
-
-    private Double amount;
-
+    
     private LocalDate paymentDate;
 
     private String paymentStatus;
+    
+    @ManyToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
+    
+    public Payment() {}
 
-    public Integer getPaymentId() {
+    public Long getPaymentId() {
 		return paymentId;
 	}
 
-	public void setPaymentId(Integer paymentId) {
+	public void setPaymentId(Long paymentId) {
 		this.paymentId = paymentId;
 	}
 
@@ -58,6 +67,15 @@ public class Payment {
 	public void setPaymentStatus(String paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
 
 	
 
