@@ -6,6 +6,8 @@ public class HotelRequestDTO {
 	 @NotBlank(message = "Hotel name is required")
 	 @Size(min = 3, max = 50)
     private String name;
+	 
+	 @NotBlank(message = "Location is required")
     private String location;
     private String description;
 	public String getName() {
