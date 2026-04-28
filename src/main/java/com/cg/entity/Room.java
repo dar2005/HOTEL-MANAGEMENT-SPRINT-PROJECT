@@ -52,18 +52,12 @@ public class Room {
         this.roomType = roomType;
     }
 
-<<<<<<< HEAD
- 
-    public Long getRoomId() { return roomId; }
-    public void setRoomId(Long roomId) { this.roomId = roomId; }
-=======
     public Long getRoomId() { 
     	return roomId; 
     }
     public void setRoomId(Long roomId) { 
     	this.roomId = roomId; 
     }
->>>>>>> e7722a8cc01704c86e05e1aa8b77247c745216c9
 
     public int getRoomNumber() { 
     	return roomNumber; 
