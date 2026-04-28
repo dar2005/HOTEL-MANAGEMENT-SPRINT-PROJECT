@@ -18,6 +18,12 @@ public class Payment {
     private LocalDate paymentDate;
 
     private String paymentStatus;
+    
+    @ManyToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
+    
+    public Payment() {}
 
     public Long getPaymentId() {
 		return paymentId;
@@ -58,6 +64,15 @@ public class Payment {
 	public void setPaymentStatus(String paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
 
 	
 
