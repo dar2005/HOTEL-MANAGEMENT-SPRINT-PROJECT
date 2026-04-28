@@ -3,6 +3,8 @@ package com.cg.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +31,7 @@ public class Room {
         joinColumns = @JoinColumn(name = "room_id"),
         inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
+    @JsonIgnore
     private List<Amenity> amenities = new ArrayList<>();
 
     public Room() {}
