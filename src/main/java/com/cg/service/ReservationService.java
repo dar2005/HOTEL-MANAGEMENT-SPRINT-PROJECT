@@ -1,87 +1,29 @@
 package com.cg.service;
 
 import com.cg.entity.Reservation;
-import com.cg.exception.ResourceNotFoundException;
-import com.cg.repo.ReservationRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
 import java.util.List;
 
-@Service
-public class ReservationService {
+public interface ReservationService {
 
-    @Autowired
-    private ReservationRepository reservationRepository;
+    Reservation createReservation(Reservation reservation);
 
-    public Reservation createReservation(
-            Reservation reservation) {
+    List<Reservation> getAllReservations();
 
-        return reservationRepository.save(
-                reservation);
-    }
+    Reservation getReservationById(Long id);
 
-    public List<Reservation> getAllReservations() {
+    Reservation updateReservation(Long id, Reservation reservation);
 
-        return reservationRepository.findAll();
-    }
+    void deleteReservation(Long id);
 
+    List<Reservation> getReservationsByGuestName(String guestName);
 
-    public Reservation getReservationById(
-            Long id) {
+    List<Reservation> getReservationsByCheckInDate(LocalDate checkInDate);
 
-        return reservationRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Reservation not found"));
-    }
+    List<Reservation> getReservationsByRoomId(Long roomId);
 
+    long getTotalReservations();
 
-    public Reservation updateReservation(
-            Long id,
-            Reservation reservation) {
-
-        Reservation oldReservation =
-                reservationRepository.findById(id)
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Reservation not found"));
-
-        oldReservation.setGuestName(
-                reservation.getGuestName());
-
-        oldReservation.setGuestEmail(
-                reservation.getGuestEmail());
-
-        oldReservation.setGuestPhone(
-                reservation.getGuestPhone());
-
-        oldReservation.setCheckInDate(
-                reservation.getCheckInDate());
-
-        oldReservation.setCheckOutDate(
-                reservation.getCheckOutDate());
-
-        oldReservation.setRoom(
-                reservation.getRoom());
-
-        return reservationRepository.save(
-                oldReservation);
-    }
-
-    public String deleteReservation(
-            Long id) {
-
-        Reservation reservation =
-                reservationRepository.findById(id)
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Reservation not found"));
-
-        reservationRepository.delete(
-                reservation);
-
-        return "Reservation deleted successfully";
-    }
+    boolean existsReservation(Long id);
 }
