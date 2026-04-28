@@ -3,6 +3,8 @@ package com.cg.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "hotel")
 public class Hotel {
@@ -37,6 +39,7 @@ public class Hotel {
             joinColumns = @JoinColumn(name = "hotel_id"),
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
+	@JsonIgnore
     private List<Amenity> amenities;
 
 	public Long getHotelId() {

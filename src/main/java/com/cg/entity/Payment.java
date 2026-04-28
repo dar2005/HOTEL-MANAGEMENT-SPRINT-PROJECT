@@ -15,63 +15,62 @@ public class Payment {
     
 //    private Long reservationId;
     
+
     private Double amount;
-    
-    
+
+  
+
+
     private LocalDate paymentDate;
 
     private String paymentStatus;
-    
+
     @ManyToOne
     @JoinColumn(name = "reservation_id")
     @JsonIgnore
     private Reservation reservation;
-    
+
     public Payment() {}
 
     public Long getPaymentId() {
-		return paymentId;
-	}
+        return paymentId;
+    }
 
-	public void setPaymentId(Long paymentId) {
-		this.paymentId = paymentId;
-	}
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
 
-	
 
-	public Double getAmount() {
-		return amount;
-	}
+    public Double getAmount() {
+        return amount;
+    }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
-	public LocalDate getPaymentDate() {
-		return paymentDate;
-	}
 
-	public void setPaymentDate(LocalDate paymentDate) {
-		this.paymentDate = paymentDate;
-	}
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
 
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
 
-	public Reservation getReservation() {
-		return reservation;
-	}
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
-	
+    public Reservation getReservation() {
+        return reservation;
+    }
 
-	
-
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }
