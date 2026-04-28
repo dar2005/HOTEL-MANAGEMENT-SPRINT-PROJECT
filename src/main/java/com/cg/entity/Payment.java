@@ -8,9 +8,9 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
     
+    @Column(name = "reservation_id", insertable = false, updatable = false)
     private Long reservationId;
 
     private Double amount;

@@ -31,7 +31,6 @@ public class Room {
     )
     private List<Amenity> amenities = new ArrayList<>();
 
-    // Constructors
     public Room() {}
 
     public List<Amenity> getAmenities() {
@@ -49,16 +48,31 @@ public class Room {
         this.roomType = roomType;
     }
 
-    // Getters & Setters
-    public Long getRoomId() { return roomId; }
-    public void setRoomId(Long roomId) { this.roomId = roomId; }
+    public Long getRoomId() { 
+    	return roomId; 
+    }
+    public void setRoomId(Long roomId) { 
+    	this.roomId = roomId; 
+    }
 
-    public int getRoomNumber() { return roomNumber; }
-    public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
+    public int getRoomNumber() { 
+    	return roomNumber; 
+    }
+    public void setRoomNumber(int roomNumber) { 
+    	this.roomNumber = roomNumber; 
+    }
 
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean available) { isAvailable = available; }
+    public boolean isAvailable() { 
+    	return isAvailable; 
+    }
+    public void setAvailable(boolean available) { 
+    	isAvailable = available; 
+    }
 
-    public RoomType getRoomType() { return roomType; }
-    public void setRoomType(RoomType roomType) { this.roomType = roomType; }
+    public RoomType getRoomType() { 
+    	return roomType; 
+    }
+    public void setRoomType(RoomType roomType) { 
+    	this.roomType = roomType; 
+    }
 }
