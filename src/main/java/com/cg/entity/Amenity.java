@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 public class Amenity {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long amenityId;
 
     private String name;
