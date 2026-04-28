@@ -3,6 +3,8 @@ package com.cg.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roomtype")
 public class RoomType {
@@ -24,6 +26,7 @@ public class RoomType {
     private double pricePerNight;
 
     @OneToMany(mappedBy = "roomType")
+    @JsonIgnore
     private List<Room> rooms;
 
     // Constructors

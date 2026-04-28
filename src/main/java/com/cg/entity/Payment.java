@@ -10,8 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long paymentId;
+    private Integer paymentId;
     
     @Column(name = "reservation_id", insertable = false, updatable = false)
     private Long reservationId;
