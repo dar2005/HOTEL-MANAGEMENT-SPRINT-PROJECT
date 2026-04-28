@@ -1,37 +1,27 @@
-package com.cg.entity;
+package com.cg.dto;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.validation.constraints.*;
 
-@Entity
-@Table(name = "roomtype")
-public class RoomType {
+public class RoomTypeDTO {
 
-    @Id
-    @Column(name = "room_type_id")
-    private Long roomTypeId;
-
-    @Column(name = "type_name")
+    @NotBlank(message = "Type name required")
     private String typeName;
 
-    @Column(name = "description")
+    @NotBlank(message = "Description required")
     private String description;
 
-    @Column(name = "max_occupancy")
+    @Min(1)
+    @Max(10)
     private int maxOccupancy;
 
-    @Column(name = "price_per_night")
+    @Positive
     private double pricePerNight;
 
-    @OneToMany(mappedBy = "roomType")
-    private List<Room> rooms;
-
     // Constructors
-    public RoomType() {}
+    public RoomTypeDTO() {}
 
-    public RoomType(Long roomTypeId, String typeName, String description,
-                    int maxOccupancy, double pricePerNight) {
-        this.roomTypeId = roomTypeId;
+    public RoomTypeDTO(String typeName, String description,
+                       int maxOccupancy, double pricePerNight) {
         this.typeName = typeName;
         this.description = description;
         this.maxOccupancy = maxOccupancy;
@@ -39,9 +29,6 @@ public class RoomType {
     }
 
     // Getters & Setters
-    public Long getRoomTypeId() { return roomTypeId; }
-    public void setRoomTypeId(Long roomTypeId) { this.roomTypeId = roomTypeId; }
-
     public String getTypeName() { return typeName; }
     public void setTypeName(String typeName) { this.typeName = typeName; }
 
@@ -53,7 +40,4 @@ public class RoomType {
 
     public double getPricePerNight() { return pricePerNight; }
     public void setPricePerNight(double pricePerNight) { this.pricePerNight = pricePerNight; }
-
-    public List<Room> getRooms() { return rooms; }
-    public void setRooms(List<Room> rooms) { this.rooms = rooms; }
 }
