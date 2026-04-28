@@ -10,70 +10,56 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-    
-    private Long reservationId;
 
     private Double amount;
 
     private LocalDate paymentDate;
 
     private String paymentStatus;
-    
+
     @ManyToOne
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
-    
+
     public Payment() {}
 
     public Long getPaymentId() {
-		return paymentId;
-	}
+        return paymentId;
+    }
 
-	public void setPaymentId(Long paymentId) {
-		this.paymentId = paymentId;
-	}
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
 
-	public Long getReservationId() {
-		return reservationId;
-	}
+    public Double getAmount() {
+        return amount;
+    }
 
-	public void setReservationId(Long reservationId) {
-		this.reservationId = reservationId;
-	}
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
-	public Double getAmount() {
-		return amount;
-	}
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-	public LocalDate getPaymentDate() {
-		return paymentDate;
-	}
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
 
-	public void setPaymentDate(LocalDate paymentDate) {
-		this.paymentDate = paymentDate;
-	}
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
+    public Reservation getReservation() {
+        return reservation;
+    }
 
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
-
-	public Reservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
-	
-
-	
-
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }
