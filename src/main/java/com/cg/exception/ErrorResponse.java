@@ -12,7 +12,7 @@ public class ErrorResponse {
         this.message = message;
         this.status = status;
         this.timestamp = LocalDateTime.now();
-    }
+    }public ErrorResponse() {}
 
     public String getMessage() {
         return message;
@@ -24,5 +24,15 @@ public class ErrorResponse {
 
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

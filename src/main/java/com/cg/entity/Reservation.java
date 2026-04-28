@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
     private String guestName;
