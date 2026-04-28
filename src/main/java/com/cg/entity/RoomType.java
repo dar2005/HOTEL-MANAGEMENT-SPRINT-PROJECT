@@ -1,4 +1,3 @@
-package com.cg.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -7,6 +6,7 @@ import java.util.List;
 public class RoomType {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomTypeId;
 
     private String typeName;
@@ -17,8 +17,7 @@ public class RoomType {
     @OneToMany(mappedBy = "roomType")
     private List<Room> rooms;
 
-    public RoomType() {}
-    
+    public RoomType() {}    
     public Long getRoomTypeId() { return roomTypeId; }
     public void setRoomTypeId(Long roomTypeId) { this.roomTypeId = roomTypeId; }
 

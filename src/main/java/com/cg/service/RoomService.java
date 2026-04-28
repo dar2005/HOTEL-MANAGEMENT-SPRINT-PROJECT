@@ -1,61 +1,57 @@
 package com.cg.service;
 
-import com.cg.entity.Room;
-import com.cg.entity.RoomType;
-import com.cg.repo.RoomRepository;
-import com.cg.repo.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class RoomService {
 
     @Autowired
-    private RoomRepository roomRepo;
+    private RoomRepository roomRepository;
 
-    @Autowired
-    private RoomTypeRepository typeRepo;
+    public Room createRoom(Room room) {
 
-    public Room createRoom(Room room, Long typeId) {
-
-        if (roomRepo.existsById(room.getRoomId())) {
-            throw new RuntimeException("Room ID already exists");
+        if (room.getRoomNumber() <= 0) {
+            throw new BadRequestException(
+                "Invalid room number"
+            );
         }
 
-        RoomType type = typeRepo.findById(typeId)
-                .orElseThrow(() -> new RuntimeException("RoomType not found"));
+        boolean exists =
+            roomRepository.existsByRoomNumber(
+                room.getRoomNumber()
+            );
 
-        room.setRoomType(type);
-        return roomRepo.save(room);
+        if (exists) {
+            throw new ConflictException(
+                "Room number already exists"
+            );
+        }
+
+        return roomRepository.save(room);
     }
 
-    public List<Room> getAllRooms() {
-        return roomRepo.findAll();
+    public Room getRoomById(Long id) {
+
+        return roomRepository.findById(id)
+            .orElseThrow(() ->
+                new ResourceNotFoundException(
+                    "Room not found"
+                ));
     }
 
-    public List<Room> getAvailableRooms() {
-        return roomRepo.findByIsAvailableTrue();
-    }
+    public Room bookRoom(Long id) {
 
-    public List<Room> getUnavailableRooms() {
-        return roomRepo.findByIsAvailableFalse();
-    }
+        Room room = getRoomById(id);
 
-    public List<Room> getRoomsByType(String typeName) {
-        return roomRepo.findByRoomType_TypeName(typeName);
-    }
+        if (!room.isAvailable()) {
+            throw new ConflictException(
+                "Room already booked"
+            );
+        }
 
-    public List<Room> getRoomsByPrice(double min, double max) {
-        return roomRepo.findByRoomType_PricePerNightBetween(min, max);
-    }
+        room.setAvailable(false);
 
-    public List<Room> getByRoomNumber(int roomNumber) {
-        return roomRepo.findByRoomNumber(roomNumber);
-    }
-
-    public void deleteRoom(Long id) {
-        roomRepo.deleteById(id);
+        return roomRepository.save(room);
     }
 }

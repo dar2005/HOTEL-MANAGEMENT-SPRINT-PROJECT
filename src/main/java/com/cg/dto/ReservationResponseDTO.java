@@ -1,18 +1,11 @@
-package com.cg.entity;
+package com.cg.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "reservation")
-public class Reservation {
+public class ReservationResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
-
     private String guestName;
     private String guestEmail;
     private String guestPhone;
@@ -20,17 +13,13 @@ public class Reservation {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
+    private Long roomId;
+    private Integer roomNumber;
 
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Payment> payment = new ArrayList<>();
+    private List<Long> paymentIds;
+    private List<Long> reviewIds;
 
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> review = new ArrayList<>();
-
-    public Reservation() {
+    public ReservationResponseDTO() {
     }
 
     public Long getReservationId() {
@@ -81,27 +70,35 @@ public class Reservation {
         this.checkOutDate = checkOutDate;
     }
 
-    public Room getRoom() {
-        return room;
+    public Long getRoomId() {
+        return roomId;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
-    public List<Payment> getPayment() {
-        return payment;
+    public Integer getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setPayment(List<Payment> payment) {
-        this.payment = payment;
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public List<Review> getReview() {
-        return review;
+    public List<Long> getPaymentIds() {
+        return paymentIds;
     }
 
-    public void setReview(List<Review> review) {
-        this.review = review;
+    public void setPaymentIds(List<Long> paymentIds) {
+        this.paymentIds = paymentIds;
+    }
+
+    public List<Long> getReviewIds() {
+        return reviewIds;
+    }
+
+    public void setReviewIds(List<Long> reviewIds) {
+        this.reviewIds = reviewIds;
     }
 }
