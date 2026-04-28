@@ -51,7 +51,26 @@ public class PaymentServiceImpl implements PaymentService {
 
         return mapToDTO(payment);
     }
-
+    
+    //get all payments
+    @Override
+    public List<PaymentResponseDTO> getAllPayments() {
+        return paymentRepository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+    
+    //delete payment
+    @Override
+    public void deletePayment(Long id) {
+        paymentRepository.deleteById(id);
+    }
+    
+    //Update Payments
+    @Override
+    public PaymentResponseDTO updatePaymentStatus(Long id, String status) {
+        Payment p = paymentRepository.findById(id).orElseThrow();
+        p.setPaymentStatus(status);
+        return mapToDTO(paymentRepository.save(p));
+    }
     // 🔹 Get Payments by Status
     @Override
     public List<PaymentResponseDTO> getPaymentsByStatus(String status) {
@@ -69,6 +88,28 @@ public class PaymentServiceImpl implements PaymentService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+    
+    //Count payments
+    @Override
+    public long countPayments() {
+        return paymentRepository.count();
+    }
+    
+    //Exists
+    @Override
+    public boolean existsById(Long id) {
+        return paymentRepository.existsById(id);
+    }
+    
+    //Success Payments
+    @Override
+    public List<PaymentResponseDTO> getSuccessfulPayments() {
+        return paymentRepository.findByPaymentStatus("SUCCESS")
+                .stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+
+
 
     // 🔄 Mapper Method
     private PaymentResponseDTO mapToDTO(Payment payment) {

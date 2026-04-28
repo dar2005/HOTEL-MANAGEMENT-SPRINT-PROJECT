@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.cg.dto.AmenityRequestDTO;
 import com.cg.dto.AmenityResponseDTO;
 import com.cg.entity.Amenity;
+import com.cg.entity.Room;
 import com.cg.repo.AmenityRepository;
+import com.cg.repo.RoomRepository;
 
 
 @Service
@@ -17,6 +19,9 @@ public class AmenityServiceImpl implements AmenityService {
 
     @Autowired
     private AmenityRepository amenityRepository;
+    
+    @Autowired
+    private RoomRepository roomRepository;
 
     // 🔹 Create Amenity
     @Override
@@ -48,11 +53,60 @@ public class AmenityServiceImpl implements AmenityService {
 
         return mapToDTO(amenity);
     }
-
+    
+    //Update
+    @Override
+    public AmenityResponseDTO updateAmenity(Long id, AmenityRequestDTO dto) {
+        Amenity amenity = amenityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Amenity not found"));
+        amenity.setName(dto.getName());
+        amenity.setDescription(dto.getDescription());
+        return mapToDTO(amenityRepository.save(amenity));
+    }
+    
     // 🔹 Delete
     @Override
     public void deleteAmenity(Long id) {
         amenityRepository.deleteById(id);
+    }
+    
+    //Get By Name
+    @Override
+    public AmenityResponseDTO getAmenityByName(String name) {
+        Amenity amenity = amenityRepository.findByName(name);
+        if (amenity == null) throw new RuntimeException("Amenity not found");
+        return mapToDTO(amenity);
+    }
+    
+    //Exists
+    @Override
+    public boolean existsById(Long id) {
+        return amenityRepository.existsById(id);
+    }
+    
+    //Count amenities
+    @Override
+    public long countAmenities() {
+        return amenityRepository.count();
+    }
+    
+    
+    //assign to room
+    @Override
+    public void assignAmenityToRoom(Long roomId, Long amenityId) {
+        Room room = roomRepository.findById(roomId).orElseThrow();
+        Amenity amenity = amenityRepository.findById(amenityId).orElseThrow();
+        room.getAmenities().add(amenity);
+        roomRepository.save(room);
+    }
+    
+    //remove from room
+    @Override
+    public void removeAmenityFromRoom(Long roomId, Long amenityId) {
+        Room room = roomRepository.findById(roomId).orElseThrow();
+        Amenity amenity = amenityRepository.findById(amenityId).orElseThrow();
+        room.getAmenities().remove(amenity);
+        roomRepository.save(room);
     }
 
     // 🔄 Mapper Method
