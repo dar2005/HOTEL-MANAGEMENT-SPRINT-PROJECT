@@ -3,8 +3,15 @@ package com.cg.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class AmenityRequestDTO {
+	private Long amenityId;
+    public Long getAmenityId() {
+		return amenityId;
+	}
+	public void setAmenityId(Long amenityId) {
+		this.amenityId = amenityId;
+	}
 	@NotBlank
-    private String name;
+	private String name;
     private String description;
 	public String getName() {
 		return name;
