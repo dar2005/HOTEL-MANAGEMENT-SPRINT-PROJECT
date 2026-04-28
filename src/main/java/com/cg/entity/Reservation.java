@@ -1,5 +1,8 @@
 package com.cg.entity;
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,7 +13,6 @@ import java.util.List;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
     private String guestName;
