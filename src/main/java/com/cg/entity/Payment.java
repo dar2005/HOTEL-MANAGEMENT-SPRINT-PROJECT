@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
-    private Long paymentId;
+    private Integer paymentId;
     
     @Column(name = "reservation_id", insertable = false, updatable = false)
     private Long reservationId;
