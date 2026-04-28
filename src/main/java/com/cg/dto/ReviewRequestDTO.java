@@ -10,6 +10,7 @@ public class ReviewRequestDTO {
 	        this.comment = comment;
 	        this.reservationId = reservationId;
 	    }
+	 public ReviewRequestDTO() {}
 
 	    public Integer getRating() {
 	        return rating;
