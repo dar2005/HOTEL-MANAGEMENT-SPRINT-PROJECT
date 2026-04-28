@@ -32,6 +32,14 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorized(UnauthorizedException ex) {
+        return new ResponseEntity<>(
+                new ErrorResponse(ex.getMessage(), 401),
+                HttpStatus.UNAUTHORIZED
+        );
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
 
@@ -48,25 +56,19 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGlobal(Exception ex) {
-        return new ResponseEntity<>(
-                new ErrorResponse("Internal Server Error", 500),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
-    }
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<ErrorResponse> handleUnauthorized(UnauthorizedException ex) {
-        return new ResponseEntity<>(
-                new ErrorResponse(ex.getMessage(), 401),
-                HttpStatus.UNAUTHORIZED
-        );
-    }
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(ValidationException ex) {
         return new ResponseEntity<>(
                 new ErrorResponse(ex.getMessage(), 400),
                 HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGlobal(Exception ex) {
+        return new ResponseEntity<>(
+                new ErrorResponse("Internal Server Error", 500),
+                HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
 }
