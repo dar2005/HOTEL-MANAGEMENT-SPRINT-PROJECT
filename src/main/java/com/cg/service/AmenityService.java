@@ -12,5 +12,17 @@ public interface AmenityService {
 
     AmenityResponseDTO getAmenityById(Long id);
 
+    AmenityResponseDTO updateAmenity(Long id, AmenityRequestDTO dto);
+    
     void deleteAmenity(Long id);
+    
+    AmenityResponseDTO getAmenityByName(String name);
+    
+    boolean existsById(Long id);
+    
+    long countAmenities();
+
+    void assignAmenityToRoom(Long roomId, Long amenityId);
+    
+    void removeAmenityFromRoom(Long roomId, Long amenityId);
 }

@@ -1,5 +1,8 @@
 package com.cg.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,8 +14,17 @@ public class Amenity {
 
     private String name;
     private String description;
+    
+    @ManyToMany(mappedBy = "amenities")
+    private List<Room> rooms = new ArrayList<>();
 
-
+    public List<Room> getRooms() {
+		return rooms;
+	}
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	public Amenity() {}
     public Long getAmenityId() {
 		return amenityId;
 	}

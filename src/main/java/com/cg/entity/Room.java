@@ -1,5 +1,8 @@
 package com.cg.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,11 +22,27 @@ public class Room {
     @ManyToOne
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "room_amenity",
+        joinColumns = @JoinColumn(name = "room_id"),
+        inverseJoinColumns = @JoinColumn(name = "amenity_id")
+    )
+    private List<Amenity> amenities = new ArrayList<>();
 
     // Constructors
     public Room() {}
 
-    public Room(Long roomId, int roomNumber, boolean isAvailable, RoomType roomType) {
+    public List<Amenity> getAmenities() {
+		return amenities;
+	}
+
+	public void setAmenities(List<Amenity> amenities) {
+		this.amenities = amenities;
+	}
+
+	public Room(Long roomId, int roomNumber, boolean isAvailable, RoomType roomType) {
         this.roomId = roomId;
         this.roomNumber = roomNumber;
         this.isAvailable = isAvailable;
