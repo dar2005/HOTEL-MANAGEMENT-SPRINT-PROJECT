@@ -1,24 +1,18 @@
 package com.cg.service;
 
-import org.springframework.stereotype.Service;
 
-@Service
-public class PaymentService {
 
-    public void processPayment(
-        double amount
-    ) {
+import java.util.List;
+import com.cg.dto.PaymentRequestDTO;
+import com.cg.dto.PaymentResponseDTO;
 
-        if (amount <= 0) {
-            throw new BadRequestException(
-                "Invalid payment amount"
-            );
-        }
+public interface PaymentService {
 
-        if (amount > 100000) {
-            throw new UnauthorizedException(
-                "Payment limit exceeded"
-            );
-        }
-    }
+    PaymentResponseDTO makePayment(PaymentRequestDTO dto);
+
+    PaymentResponseDTO getPaymentById(Long id);
+
+    List<PaymentResponseDTO> getPaymentsByStatus(String status);
+
+    List<PaymentResponseDTO> getPaymentsByReservation(Long reservationId);
 }

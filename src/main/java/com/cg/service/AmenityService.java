@@ -1,19 +1,16 @@
 package com.cg.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
+import com.cg.dto.AmenityRequestDTO;
+import com.cg.dto.AmenityResponseDTO;
 
-@Service
-public class AmenityService {
+public interface AmenityService {
 
-    @Autowired
-    private AmenityRepository amenityRepository;
+    AmenityResponseDTO createAmenity(AmenityRequestDTO dto);
 
-    public Amenity save(Amenity amenity) {
-        return amenityRepository.save(amenity);
-    }
+    List<AmenityResponseDTO> getAllAmenities();
 
-    public List<Amenity> getAll() {
-        return amenityRepository.findAll();
-    }
+    AmenityResponseDTO getAmenityById(Long id);
+
+    void deleteAmenity(Long id);
 }

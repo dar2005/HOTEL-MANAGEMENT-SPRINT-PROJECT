@@ -7,16 +7,16 @@ import jakarta.persistence.*;
 public class Amenity {
 
     @Id
-    private Integer amenityId;
+    private Long amenityId;
 
     private String name;
     private String description;
 
 
-    public Integer getAmenityId() {
+    public Long getAmenityId() {
 		return amenityId;
 	}
-	public void setAmenityId(Integer amenityId) {
+	public void setAmenityId(Long amenityId) {
 		this.amenityId = amenityId;
 	}
 	public String getName() {

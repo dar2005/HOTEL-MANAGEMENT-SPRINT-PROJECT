@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 package com.cg.entity;
 
->>>>>>> main
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -11,11 +8,7 @@ import java.util.List;
 public class RoomType {
 
     @Id
-<<<<<<< HEAD
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-=======
     @Column(name = "room_type_id")
->>>>>>> main
     private Long roomTypeId;
 
     @Column(name = "type_name")
@@ -33,9 +26,6 @@ public class RoomType {
     @OneToMany(mappedBy = "roomType")
     private List<Room> rooms;
 
-<<<<<<< HEAD
-    public RoomType() {}    
-=======
     // Constructors
     public RoomType() {}
 
@@ -49,7 +39,6 @@ public class RoomType {
     }
 
     // Getters & Setters
->>>>>>> main
     public Long getRoomTypeId() { return roomTypeId; }
     public void setRoomTypeId(Long roomTypeId) { this.roomTypeId = roomTypeId; }
 
