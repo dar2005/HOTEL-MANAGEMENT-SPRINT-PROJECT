@@ -1,7 +1,24 @@
 package com.cg.repo;
 
-public class ReviewRepository {
-String name;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cg.entity.Review;
+
+public interface ReviewRepository extends JpaRepository<Review, Long>{
+	List<Review> findByReservationReservationId(Long reservationId);
+	
+	 List<Review> findByRating(Integer rating);
+	 
+	 List<Review> findAllByOrderByReviewDateDesc();
+	 
+	 List<Review> findByRatingGreaterThan(Integer rating);
+	 
+	 List<Review> findByRatingLessThan(Integer rating);
+
+	 List<Review> findByCommentContaining(String keyword);
+	
 
 
 
