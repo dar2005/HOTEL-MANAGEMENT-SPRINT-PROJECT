@@ -8,10 +8,10 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentId;
     
-    private Integer reservationId;
+    @Column(name = "reservation_id", insertable = false, updatable = false)
+    private Long reservationId;
 
     private Double amount;
 
@@ -27,11 +27,11 @@ public class Payment {
 		this.paymentId = paymentId;
 	}
 
-	public Integer getReservationId() {
+	public Long getReservationId() {
 		return reservationId;
 	}
 
-	public void setReservationId(Integer reservationId) {
+	public void setReservationId(Long reservationId) {
 		this.reservationId = reservationId;
 	}
 
