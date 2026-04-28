@@ -1,5 +1,9 @@
 package com.cg.repo;
 
-public class AmenityRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.cg.entity.Amenity;
 
+public interface AmenityRepository extends JpaRepository<Amenity, Long> {
+
+    Amenity findByName(String name);
 }
