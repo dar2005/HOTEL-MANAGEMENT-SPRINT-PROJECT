@@ -8,13 +8,16 @@ import java.time.LocalDate;
 public class Payment {
 
     @Id
-    private Integer paymentId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long paymentId;
+    
+//    private Long reservationId;
+
+    private Double amount;
     
     @Column(name = "reservation_id", insertable = false, updatable = false)
     private Long reservationId;
-
-    private Double amount;
-
+    
     private LocalDate paymentDate;
 
     private String paymentStatus;

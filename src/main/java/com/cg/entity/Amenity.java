@@ -3,6 +3,8 @@ package com.cg.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,12 +12,14 @@ import jakarta.persistence.*;
 public class Amenity {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long amenityId;
 
     private String name;
     private String description;
     
     @ManyToMany(mappedBy = "amenities")
+    @JsonIgnore
     private List<Room> rooms = new ArrayList<>();
 
     public List<Room> getRooms() {
