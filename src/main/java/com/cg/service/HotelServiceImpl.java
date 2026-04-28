@@ -3,6 +3,8 @@ package com.cg.service;
 import com.cg.dto.HotelRequestDTO;
 import com.cg.dto.HotelResponseDTO;
 import com.cg.entity.Hotel;
+import com.cg.exception.ResourceNotFoundException;
+import com.cg.exception.ConflictException;
 import com.cg.repo.HotelRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,18 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public HotelResponseDTO createHotel(Long id, HotelRequestDTO dto) {
+        if (hotelRepository.existsById(id)) {
+            throw new ConflictException("Hotel already exists with id: " + id);
+        }
+
         Hotel hotel = new Hotel();
         hotel.setHotelId(id);
         hotel.setName(dto.getName());
         hotel.setLocation(dto.getLocation());
         hotel.setDescription(dto.getDescription());
+
         Hotel saved = hotelRepository.save(hotel);
+
         return mapToDTO(saved);
     }
 
@@ -39,7 +47,8 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelResponseDTO getHotelById(Long id) {
         Hotel hotel = hotelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with id: " + id));
+
         return mapToDTO(hotel);
     }
 
@@ -71,17 +80,15 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public HotelResponseDTO updateHotel(Long id, HotelRequestDTO dto) {
         Hotel hotel = hotelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with id: " + id));
+
         hotel.setName(dto.getName());
         hotel.setLocation(dto.getLocation());
         hotel.setDescription(dto.getDescription());
-        Hotel updated = hotelRepository.save(hotel);
-        return mapToDTO(updated);
-    }
 
-    @Override
-    public void deleteHotel(Long id) {
-        hotelRepository.deleteById(id);
+        Hotel updated = hotelRepository.save(hotel);
+
+        return mapToDTO(updated);
     }
 
     private HotelResponseDTO mapToDTO(Hotel hotel) {
