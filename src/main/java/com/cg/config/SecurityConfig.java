@@ -9,6 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 public class SecurityConfig {
@@ -37,10 +38,10 @@ public class SecurityConfig {
                         "/rooms/type/**",
                         "/hotels/**"
                 ).permitAll()
+                
+                .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
 
-                // USER + ADMIN
-                .requestMatchers("/reviews/**")
-                .hasAnyRole("USER", "ADMIN")
+             
 
                 // USER only
                 .requestMatchers(
@@ -53,6 +54,11 @@ public class SecurityConfig {
                         "/api/amenities/**",
                         "/rooms/**"
                 ).hasRole("ADMIN")
+                
+                .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/reviews/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/reviews/**").hasAnyRole("USER", "ADMIN")
+
 
                 .anyRequest().authenticated()
             )
