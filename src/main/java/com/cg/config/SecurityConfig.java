@@ -9,6 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 public class SecurityConfig {
@@ -36,12 +37,9 @@ public class SecurityConfig {
                         "/v3/api-docs",
                         "/v3/api-docs/**"
                 ).permitAll()
-                .requestMatchers(
-                        "/rooms",
-                        "/rooms/available",
-                        "/rooms/type/**",
-                        "/hotels/**"
-                ).permitAll()
+  
+                .requestMatchers(HttpMethod.GET, "/rooms/**").permitAll()
+                .requestMatchers("/hotels/**").permitAll()
 
                 // USER + ADMIN
                 .requestMatchers("/reviews/**")
@@ -58,10 +56,10 @@ public class SecurityConfig {
 >>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
 
                 // ADMIN only
-                .requestMatchers(
-                        "/api/amenities/**",
-                        "/rooms/**"
-                ).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/rooms/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/rooms/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/rooms/**").hasRole("ADMIN")
+                .requestMatchers("/api/amenities/**").hasRole("ADMIN")
 
 <<<<<<< HEAD
 >>>>>>> Stashed changes
