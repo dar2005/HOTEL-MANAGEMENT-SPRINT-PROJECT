@@ -23,6 +23,38 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+<<<<<<< Updated upstream
+=======
+                .requestMatchers(
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs",
+                        "/v3/api-docs/**"
+                ).permitAll()
+                .requestMatchers(
+                        "/rooms",
+                        "/rooms/available",
+                        "/rooms/type/**",
+                        "/hotels/**"
+                ).permitAll()
+
+                // USER + ADMIN
+                .requestMatchers("/reviews/**")
+                .hasAnyRole("USER", "ADMIN")
+
+                // USER only
+                .requestMatchers(
+                        "/api/reservations/**",
+                        "/api/payments/**"
+                ).hasAnyRole("USER","ADMIN")
+
+                // ADMIN only
+                .requestMatchers(
+                        "/api/amenities/**",
+                        "/rooms/**"
+                ).hasRole("ADMIN")
+
+>>>>>>> Stashed changes
                 .anyRequest().authenticated()
             )
             .httpBasic(httpBasic -> httpBasic.disable())

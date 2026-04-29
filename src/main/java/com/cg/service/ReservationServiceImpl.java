@@ -1,8 +1,10 @@
 package com.cg.service;
 
 import com.cg.entity.Reservation;
+import com.cg.entity.Room;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.repo.ReservationRepository;
+import com.cg.repo.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,19 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+    
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public Reservation createReservation(Reservation reservation) {
 
-        validateReservation(reservation);
+        Long roomId = reservation.getRoom().getRoomId();
+
+        Room room = roomRepository.findById(roomId)
+            .orElseThrow(() -> new RuntimeException("Room not found"));
+
+        reservation.setRoom(room);
 
         return reservationRepository.save(reservation);
     }
