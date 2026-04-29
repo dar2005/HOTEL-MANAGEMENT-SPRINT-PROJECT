@@ -26,6 +26,12 @@ public class SecurityConfig {
                 // PUBLIC APIs
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs",
+                        "/v3/api-docs/**"
+                ).permitAll()
+                .requestMatchers(
                         "/rooms",
                         "/rooms/available",
                         "/rooms/type/**",
@@ -42,7 +48,7 @@ public class SecurityConfig {
                         "/api/payments/**"
                 ).hasRole("USER")
 
-                // ADMIN only (write operations)
+                // ADMIN only
                 .requestMatchers(
                         "/api/amenities/**",
                         "/rooms/**"
