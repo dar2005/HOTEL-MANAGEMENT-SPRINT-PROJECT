@@ -26,6 +26,7 @@ public class SecurityConfig {
 
                 // 🔓 PUBLIC
                 .requestMatchers("/auth/**").permitAll()
+
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
@@ -38,6 +39,8 @@ public class SecurityConfig {
 
                 // 🌍 PUBLIC READ (Reviews)
                 .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
+                ).hasAnyRole("USER", "ADMIN")
+
 
                 // 👤 USER + ADMIN (write reviews)
                 .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("USER", "ADMIN")
