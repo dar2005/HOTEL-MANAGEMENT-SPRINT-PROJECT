@@ -26,7 +26,7 @@ public class Room {
     private RoomType roomType;
     
     @ManyToMany
-    @JsonIgnore
+    
     @JoinTable(
         name = "room_amenity",
         joinColumns = @JoinColumn(name = "room_id"),
