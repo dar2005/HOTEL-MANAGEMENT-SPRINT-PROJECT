@@ -16,17 +16,24 @@ public class Room {
     private Long roomId;
 
     @Column(name = "room_number")
-    private int roomNumber;
+    private Integer roomNumber;
 
     @Column(name = "is_available")
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
     @ManyToOne
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
-    
+
     @ManyToMany
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+    
+=======
+>>>>>>> Stashed changes
+=======
 //    @JsonIgnore
+>>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
     @JoinTable(
         name = "room_amenity",
         joinColumns = @JoinColumn(name = "room_id"),
@@ -35,48 +42,57 @@ public class Room {
     @JsonIgnore
     private List<Amenity> amenities = new ArrayList<>();
 
-    public Room() {}
+    // Default Constructor
+    public Room() {
+    }
 
-    public List<Amenity> getAmenities() {
-		return amenities;
-	}
-
-	public void setAmenities(List<Amenity> amenities) {
-		this.amenities = amenities;
-	}
-
-	public Room(Long roomId, int roomNumber, boolean isAvailable, RoomType roomType) {
+    // Parameterized Constructor
+    public Room(Long roomId, Integer roomNumber, Boolean isAvailable, RoomType roomType) {
         this.roomId = roomId;
         this.roomNumber = roomNumber;
         this.isAvailable = isAvailable;
         this.roomType = roomType;
     }
 
-    public Long getRoomId() { 
-    	return roomId; 
-    }
-    public void setRoomId(Long roomId) { 
-    	this.roomId = roomId; 
+    // Getters and Setters
+
+    public Long getRoomId() {
+        return roomId;
     }
 
-    public int getRoomNumber() { 
-    	return roomNumber; 
-    }
-    public void setRoomNumber(int roomNumber) { 
-    	this.roomNumber = roomNumber; 
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
-    public boolean isAvailable() { 
-    	return isAvailable; 
-    }
-    public void setAvailable(boolean available) { 
-    	isAvailable = available; 
+    public Integer getRoomNumber() {
+        return roomNumber;
     }
 
-    public RoomType getRoomType() { 
-    	return roomType; 
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
     }
-    public void setRoomType(RoomType roomType) { 
-    	this.roomType = roomType; 
+
+    public Boolean getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(Boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public List<Amenity> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<Amenity> amenities) {
+        this.amenities = amenities;
     }
 }

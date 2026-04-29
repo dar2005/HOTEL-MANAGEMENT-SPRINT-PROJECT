@@ -40,6 +40,9 @@ public class SecurityConfig {
                 ).permitAll()
                 
                 .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
+  
+                .requestMatchers(HttpMethod.GET, "/rooms/**").permitAll()
+                .requestMatchers("/hotels/**").permitAll()
 
              
 
@@ -47,6 +50,7 @@ public class SecurityConfig {
                 .requestMatchers(
                         "/api/reservations/**",
                         "/api/payments/**"
+                ).hasAnyRole("USER","ADMIN")
                 ).hasRole("USER")
 
                 // ADMIN only
@@ -58,6 +62,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/reviews/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/reviews/**").hasAnyRole("USER", "ADMIN")
+
 
 
                 .anyRequest().authenticated()
