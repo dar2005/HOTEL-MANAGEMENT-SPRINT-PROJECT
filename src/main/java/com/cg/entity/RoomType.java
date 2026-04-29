@@ -41,7 +41,7 @@ public class RoomType {
         this.pricePerNight = pricePerNight;
     }
 
-    // Getters & Setters
+   
     public Long getRoomTypeId() { return roomTypeId; }
     public void setRoomTypeId(Long roomTypeId) { this.roomTypeId = roomTypeId; }
 
