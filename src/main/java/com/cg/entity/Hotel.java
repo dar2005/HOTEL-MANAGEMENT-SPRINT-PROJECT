@@ -32,8 +32,9 @@ public class Hotel {
 		this.description = description;
 		this.amenities = amenities;
 	}
-
+    
 	@ManyToMany
+//	@JsonIgnore
     @JoinTable(
             name = "hotel_amenity",
             joinColumns = @JoinColumn(name = "hotel_id"),
