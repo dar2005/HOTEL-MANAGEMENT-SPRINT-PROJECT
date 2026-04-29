@@ -25,17 +25,14 @@ public class SecurityConfig {
 
                 // PUBLIC APIs
                 .requestMatchers("/auth/**").permitAll()
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
+
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs",
                         "/v3/api-docs/**"
                 ).permitAll()
+
                 .requestMatchers(
                         "/rooms",
                         "/rooms/available",
@@ -47,15 +44,11 @@ public class SecurityConfig {
                 .requestMatchers("/reviews/**")
                 .hasAnyRole("USER", "ADMIN")
 
-                // USER only
+                // USER + ADMIN
                 .requestMatchers(
                         "/api/reservations/**",
                         "/api/payments/**"
-<<<<<<< HEAD
-                ).hasAnyRole("USER","ADMIN")
-=======
-                ).hasRole("USER")
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
+                ).hasAnyRole("USER", "ADMIN")
 
                 // ADMIN only
                 .requestMatchers(
@@ -63,10 +56,6 @@ public class SecurityConfig {
                         "/rooms/**"
                 ).hasRole("ADMIN")
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
                 .anyRequest().authenticated()
             )
             .httpBasic(httpBasic -> httpBasic.disable())
