@@ -25,7 +25,7 @@ public class AuthService {
             throw new ConflictException("Email exists");
 
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setRole("ADMIN");
+        user.setRole("USER");
 
         repo.save(user);
         return "Registered";
