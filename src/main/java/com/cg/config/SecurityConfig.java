@@ -26,45 +26,45 @@ public class SecurityConfig {
 
                 // PUBLIC APIs
                 .requestMatchers("/auth/**").permitAll()
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs",
                         "/v3/api-docs/**"
                 ).permitAll()
+                .requestMatchers(
+                        "/rooms",
+                        "/rooms/available",
+                        "/rooms/type/**",
+                        "/hotels/**"
+                ).permitAll()
+                
+                .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
   
                 .requestMatchers(HttpMethod.GET, "/rooms/**").permitAll()
                 .requestMatchers("/hotels/**").permitAll()
 
-                // USER + ADMIN
-                .requestMatchers("/reviews/**")
-                .hasAnyRole("USER", "ADMIN")
+             
 
                 // USER only
                 .requestMatchers(
                         "/api/reservations/**",
                         "/api/payments/**"
-<<<<<<< HEAD
                 ).hasAnyRole("USER","ADMIN")
-=======
                 ).hasRole("USER")
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
 
                 // ADMIN only
-                .requestMatchers(HttpMethod.POST, "/rooms/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/rooms/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/rooms/**").hasRole("ADMIN")
-                .requestMatchers("/api/amenities/**").hasRole("ADMIN")
+                .requestMatchers(
+                        "/api/amenities/**",
+                        "/rooms/**"
+                ).hasRole("ADMIN")
+                
+                .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/reviews/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/reviews/**").hasAnyRole("USER", "ADMIN")
 
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
+
+
                 .anyRequest().authenticated()
             )
             .httpBasic(httpBasic -> httpBasic.disable())
