@@ -3,6 +3,8 @@ package com.cg.controller;
 import com.cg.entity.Reservation;
 import com.cg.service.ReservationService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +21,12 @@ public class ReservationController {
 
 
     @PostMapping
-    public Reservation createReservation(
+    public Reservation createReservation( @Valid
             @RequestBody Reservation reservation) {
 
         return reservationService
                 .createReservation(reservation);
     }
-
    
     @GetMapping
     public List<Reservation> getAllReservations() {
@@ -33,7 +34,6 @@ public class ReservationController {
         return reservationService
                 .getAllReservations();
     }
-
     
     @GetMapping("/{id}")
     public Reservation getReservationById(
@@ -45,7 +45,7 @@ public class ReservationController {
 
     @PutMapping("/{id}")
     public Reservation updateReservation(
-            @PathVariable Long id,
+            @PathVariable Long id, @Valid
             @RequestBody Reservation reservation) {
 
         return reservationService
