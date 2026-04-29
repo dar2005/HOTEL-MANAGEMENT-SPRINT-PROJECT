@@ -34,7 +34,7 @@ public class RoomServiceImpl implements RoomService {
         room.setRoomType(type);
         return roomRepo.save(room);
     }
-
+//comment
     @Override
     public List<Room> getAllRooms() {
         return roomRepo.findAll();

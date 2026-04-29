@@ -34,12 +34,13 @@ public class Hotel {
 	}
     
 	@ManyToMany
-	@JsonIgnore
+
     @JoinTable(
             name = "hotel_amenity",
             joinColumns = @JoinColumn(name = "hotel_id"),
             inverseJoinColumns = @JoinColumn(name = "amenity_id")
     )
+	@JsonIgnore
     private List<Amenity> amenities;
 
 	public Long getHotelId() {
