@@ -26,12 +26,17 @@ public class SecurityConfig {
 
                 // PUBLIC APIs
                 .requestMatchers("/auth/**").permitAll()
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs",
                         "/v3/api-docs/**"
                 ).permitAll()
+
                 .requestMatchers(
                         "/rooms",
                         "/rooms/available",
@@ -46,12 +51,16 @@ public class SecurityConfig {
 
              
 
-                // USER only
+                // USER + ADMIN
                 .requestMatchers(
                         "/api/reservations/**",
                         "/api/payments/**"
+<<<<<<< HEAD
+                ).hasAnyRole("USER", "ADMIN")
+=======
                 ).hasAnyRole("USER","ADMIN")
                 ).hasRole("USER")
+>>>>>>> main
 
                 // ADMIN only
                 .requestMatchers(
