@@ -26,14 +26,7 @@ public class Room {
     private RoomType roomType;
 
     @ManyToMany
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    
-=======
->>>>>>> Stashed changes
-=======
-//    @JsonIgnore
->>>>>>> fd381f44ae36d55c9970e6746dfe08896801ac3c
+   // @JsonIgnore
     @JoinTable(
         name = "room_amenity",
         joinColumns = @JoinColumn(name = "room_id"),
