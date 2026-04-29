@@ -1,6 +1,10 @@
 package com.cg.entity;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "reservation")
@@ -20,84 +24,86 @@ public class Reservation {
     @JoinColumn(name = "room_id")
     private Room room;
 
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Payment> payments;
+
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Review> reviews;
+
+    public Reservation() {
+    }
+
     public Long getReservationId() {
-		return reservationId;
-	}
+        return reservationId;
+    }
 
-	public void setReservationId(Long reservationId) {
-		this.reservationId = reservationId;
-	}
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
 
-	public String getGuestName() {
-		return guestName;
-	}
+    public String getGuestName() {
+        return guestName;
+    }
 
-	public void setGuestName(String guestName) {
-		this.guestName = guestName;
-	}
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
+    }
 
-	public String getGuestEmail() {
-		return guestEmail;
-	}
+    public String getGuestEmail() {
+        return guestEmail;
+    }
 
-	public void setGuestEmail(String guestEmail) {
-		this.guestEmail = guestEmail;
-	}
+    public void setGuestEmail(String guestEmail) {
+        this.guestEmail = guestEmail;
+    }
 
-	public String getGuestPhone() {
-		return guestPhone;
-	}
+    public String getGuestPhone() {
+        return guestPhone;
+    }
 
-	public void setGuestPhone(String guestPhone) {
-		this.guestPhone = guestPhone;
-	}
+    public void setGuestPhone(String guestPhone) {
+        this.guestPhone = guestPhone;
+    }
 
-	public LocalDate getCheckInDate() {
-		return checkInDate;
-	}
+    public LocalDate getCheckInDate() {
+        return checkInDate;
+    }
 
-	public void setCheckInDate(LocalDate checkInDate) {
-		this.checkInDate = checkInDate;
-	}
+    public void setCheckInDate(LocalDate checkInDate) {
+        this.checkInDate = checkInDate;
+    }
 
-	public LocalDate getCheckOutDate() {
-		return checkOutDate;
-	}
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
+    }
 
-	public void setCheckOutDate(LocalDate checkOutDate) {
-		this.checkOutDate = checkOutDate;
-	}
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate;
+    }
 
-	public Room getRoom() {
-		return room;
-	}
+    public Room getRoom() {
+        return room;
+    }
 
-	public void setRoom(Room room) {
-		this.room = room;
-	}
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
-	public Payment getPayment() {
-		return payment;
-	}
+    public List<Payment> getPayments() {
+        return payments;
+    }
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 
-	public Review getReview() {
-		return review;
-	}
+    public List<Review> getReviews() {
+        return reviews;
+    }
 
-	public void setReview(Review review) {
-		this.review = review;
-	}
-
-	@OneToOne(mappedBy = "reservation")
-    private Payment payment;
-
-    @OneToOne(mappedBy = "reservation")
-    private Review review;
-
-    public Reservation() {}
-
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 }
