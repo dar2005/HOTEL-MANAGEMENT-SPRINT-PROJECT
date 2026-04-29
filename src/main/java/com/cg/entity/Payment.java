@@ -12,11 +12,14 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
+    
+//    private Long reservationId;
+    
 
     private Double amount;
 
-    @Column(name = "reservation_id", insertable = false, updatable = false)
-    private Long reservationId;
+  
+
 
     private LocalDate paymentDate;
 
@@ -37,6 +40,7 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
+
     public Double getAmount() {
         return amount;
     }
@@ -45,13 +49,6 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Long getReservationId() {
-        return reservationId;
-    }
-
-    public void setReservationId(Long reservationId) {
-        this.reservationId = reservationId;
-    }
 
     public LocalDate getPaymentDate() {
         return paymentDate;

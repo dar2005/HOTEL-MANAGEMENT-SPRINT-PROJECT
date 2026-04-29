@@ -34,7 +34,7 @@ public class Hotel {
 	}
     
 	@ManyToMany
-	@JsonIgnore
+//	@JsonIgnore
     @JoinTable(
             name = "hotel_amenity",
             joinColumns = @JoinColumn(name = "hotel_id"),
