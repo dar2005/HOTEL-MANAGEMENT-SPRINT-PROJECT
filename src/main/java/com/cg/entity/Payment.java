@@ -12,75 +12,69 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-    
-//    private Long reservationId;
 
     private Double amount;
-    
+
     @Column(name = "reservation_id", insertable = false, updatable = false)
     
     private Long reservationId;
-    
+
     private LocalDate paymentDate;
 
     private String paymentStatus;
-    
+
     @ManyToOne
     @JoinColumn(name = "reservation_id")
     @JsonIgnore
     private Reservation reservation;
-    
+
     public Payment() {}
 
     public Long getPaymentId() {
-		return paymentId;
-	}
+        return paymentId;
+    }
 
-	public void setPaymentId(Long paymentId) {
-		this.paymentId = paymentId;
-	}
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
 
-	public Long getReservationId() {
-		return reservationId;
-	}
+    public Double getAmount() {
+        return amount;
+    }
 
-	public void setReservationId(Long reservationId) {
-		this.reservationId = reservationId;
-	}
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
-	public Double getAmount() {
-		return amount;
-	}
+    public Long getReservationId() {
+        return reservationId;
+    }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
 
-	public LocalDate getPaymentDate() {
-		return paymentDate;
-	}
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
 
-	public void setPaymentDate(LocalDate paymentDate) {
-		this.paymentDate = paymentDate;
-	}
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
 
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 
-	public Reservation getReservation() {
-		return reservation;
-	}
+    public Reservation getReservation() {
+        return reservation;
+    }
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
-	
-
-	
-
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }

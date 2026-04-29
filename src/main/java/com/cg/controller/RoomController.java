@@ -46,9 +46,18 @@ public class RoomController {
                                              @RequestParam double max) {
         return ResponseEntity.ok(service.getRoomsByPrice(min, max));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Room> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getById(id));
+    }
+    @PutMapping("/{id}/availability")
+    public ResponseEntity<Room> updateAvailability(@PathVariable Long id,
+                                                   @RequestParam boolean status) {
+        return ResponseEntity.ok(service.updateAvailability(id, status));
+    }
 
     @GetMapping("/number/{roomNumber}")
-    public ResponseEntity<List<Room>> byNumber(@PathVariable int roomNumber) {
+    public ResponseEntity<Room> byNumber(@PathVariable int roomNumber) {
         return ResponseEntity.ok(service.getByRoomNumber(roomNumber));
     }
 
