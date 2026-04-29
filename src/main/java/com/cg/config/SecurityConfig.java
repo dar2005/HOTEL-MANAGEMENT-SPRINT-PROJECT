@@ -22,7 +22,32 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+
+                // PUBLIC APIs
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(
+                        "/rooms",
+                        "/rooms/available",
+                        "/rooms/type/**",
+                        "/hotels/**"
+                ).permitAll()
+
+                // USER + ADMIN
+                .requestMatchers("/reviews/**")
+                .hasAnyRole("USER", "ADMIN")
+
+                // USER only
+                .requestMatchers(
+                        "/api/reservations/**",
+                        "/api/payments/**"
+                ).hasRole("USER")
+
+                // ADMIN only (write operations)
+                .requestMatchers(
+                        "/api/amenities/**",
+                        "/rooms/**"
+                ).hasRole("ADMIN")
+
                 .anyRequest().authenticated()
             )
             .httpBasic(httpBasic -> httpBasic.disable())
