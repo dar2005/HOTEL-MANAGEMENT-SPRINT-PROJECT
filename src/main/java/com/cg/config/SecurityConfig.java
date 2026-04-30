@@ -49,9 +49,11 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/rooms/**").hasRole("ADMIN")
+                
+                .requestMatchers(HttpMethod.POST, "/hotels/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/hotels/**").hasRole("ADMIN")
 
                 .requestMatchers("/api/amenities/**").hasRole("ADMIN")
-
                 .anyRequest().authenticated()
             )
             .httpBasic(httpBasic -> httpBasic.disable())
