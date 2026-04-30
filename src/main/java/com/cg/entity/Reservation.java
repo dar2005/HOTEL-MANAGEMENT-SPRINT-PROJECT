@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "reservation")
 public class Reservation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
     private String guestName;
@@ -23,9 +26,11 @@ public class Reservation {
     private Room room;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Payment> payments;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Review> reviews;
 
     public Reservation() {

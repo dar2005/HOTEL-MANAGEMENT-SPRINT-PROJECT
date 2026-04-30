@@ -18,8 +18,9 @@ public class Payment {
 
     private Double amount;
 
-  
-
+    @Column(name = "reservation_id", insertable = false, updatable = false)
+    
+    private Long reservationId;
 
     private LocalDate paymentDate;
 

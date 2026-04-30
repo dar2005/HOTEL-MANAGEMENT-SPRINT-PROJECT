@@ -3,6 +3,8 @@ package com.cg.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "review")
@@ -14,6 +16,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "reservation_id")
+    @JsonIgnore
     private Reservation reservation;
 
     private Integer rating;

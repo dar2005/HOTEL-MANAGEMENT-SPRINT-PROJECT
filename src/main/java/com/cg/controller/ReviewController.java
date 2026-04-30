@@ -40,7 +40,6 @@ public class ReviewController {
         return reviewService.updateReview(id, dto);
     }
 
-    
     @DeleteMapping("/{id}")
     public String deleteReview(@PathVariable Long id) {
         return reviewService.deleteReview(id);
