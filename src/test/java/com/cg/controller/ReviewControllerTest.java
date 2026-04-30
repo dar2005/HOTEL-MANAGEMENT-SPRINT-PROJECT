@@ -86,4 +86,62 @@ class ReviewControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Review deleted successfully"));
     }
+    
+    @Test
+    void getAllReviews_emptyList() throws Exception {
+        when(reviewService.getAllReviews())
+                .thenReturn(List.of());
+
+        mockMvc.perform(get("/reviews"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(0));
+    }
+    
+    @Test
+    void getByReservation() throws Exception {
+        when(reviewService.getByReservation(1L))
+                .thenReturn(List.of(
+                        new ReviewResponseDTO(1L, 5, "Excellent", LocalDate.now())
+                ));
+
+        mockMvc.perform(get("/reviews/reservation/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].rating").value(5));
+    }
+    
+    @Test
+    void searchByComment() throws Exception {
+        when(reviewService.searchByComment("Excellent"))
+                .thenReturn(List.of(
+                        new ReviewResponseDTO(1L, 5, "Excellent stay", LocalDate.now())
+                ));
+
+        mockMvc.perform(get("/reviews/search")
+                .param("keyword", "Excellent"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1));
+    }
+    
+    @Test
+    void getLatestReviews() throws Exception {
+        when(reviewService.getLatestReviews())
+                .thenReturn(List.of(
+                        new ReviewResponseDTO(1L, 5, "Latest review", LocalDate.now())
+                ));
+
+        mockMvc.perform(get("/reviews/latest"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1));
+    }
+    
+    @Test
+    void getAverageRating() throws Exception {
+        when(reviewService.getAverageRating())
+                .thenReturn(4.5);
+
+        mockMvc.perform(get("/reviews/average"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("4.5"));
+    }
 }
