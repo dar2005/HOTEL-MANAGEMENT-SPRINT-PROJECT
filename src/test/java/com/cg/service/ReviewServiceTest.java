@@ -50,7 +50,7 @@ class ReviewServiceTest {
         review.setReservation(reservation);
     }
 
-    // ✅ CREATE
+    //  CREATE
     @Test
     void createReview_success() {
         ReviewRequestDTO dto = new ReviewRequestDTO(5, "Excellent", 1L);
@@ -78,7 +78,7 @@ class ReviewServiceTest {
         });
     }
 
-    // ✅ GET BY ID
+    //  GET BY ID
     @Test
     void getReviewById_success() {
         when(reviewRepository.findById(1L))
@@ -99,7 +99,7 @@ class ReviewServiceTest {
         });
     }
 
-    // ✅ UPDATE
+    //  UPDATE
     @Test
     void updateReview_success() {
         ReviewRequestDTO dto = new ReviewRequestDTO(4, "Good", 1L);
@@ -115,7 +115,7 @@ class ReviewServiceTest {
         assertEquals("Good", response.getComment());
     }
 
-    // ✅ DELETE
+    //  DELETE
     @Test
     void deleteReview_success() {
         when(reviewRepository.findById(1L))
@@ -127,7 +127,7 @@ class ReviewServiceTest {
         verify(reviewRepository).delete(review);
     }
 
-    // ✅ GET ALL
+    //  GET ALL
     @Test
     void getAllReviews() {
         when(reviewRepository.findAll())
@@ -138,7 +138,7 @@ class ReviewServiceTest {
         assertEquals(1, list.size());
     }
 
-    // ✅ FILTERS
+    //  FILTERS
     @Test
     void getByRating() {
         when(reviewRepository.findByRating(5))
@@ -169,7 +169,7 @@ class ReviewServiceTest {
         assertEquals(1, list.size());
     }
 
-    // ✅ AVERAGE
+    //  AVERAGE
     @Test
     void getAverageRating() {
         when(reviewRepository.findAll())
