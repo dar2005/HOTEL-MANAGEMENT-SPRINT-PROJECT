@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.cg.security.JwtFilter;
 
 @Configuration
-public class SecurityConfig {       
+public class SecurityConfig {
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -25,19 +25,23 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
 
-                // PUBLIC
-                .requestMatchers("/auth/**").permitAll()
+                // ✅ Swagger (IMPORTANT)
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs/**"
                 ).permitAll()
 
-                // PUBLIC READ
+                // ✅ Auth APIs
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/auth/**").permitAll()
+
+                // ✅ Public read
                 .requestMatchers(HttpMethod.GET, "/rooms/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/hotels/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
 
+                // ✅ USER + ADMIN
                 .requestMatchers(HttpMethod.GET, "/roomtypes/**").permitAll()
 
 
@@ -49,7 +53,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/reservations/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/payments/**").hasAnyRole("USER", "ADMIN")
 
-                // ADMIN ONLY
+                // ✅ ADMIN ONLY
                 .requestMatchers(HttpMethod.POST, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/rooms/**").hasRole("ADMIN")

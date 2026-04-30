@@ -36,6 +36,11 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        if (path.startsWith("/api/auth") ||
+            path.startsWith("/swagger-ui") ||
+            path.startsWith("/v3/api-docs") ||
+        	 path.startsWith("/swagger-resources") ||
+        	    path.startsWith("/webjars")){
         String header = request.getHeader("Authorization");
 
         // ❌ If no token → DO NOT authenticate (Spring will handle access)
