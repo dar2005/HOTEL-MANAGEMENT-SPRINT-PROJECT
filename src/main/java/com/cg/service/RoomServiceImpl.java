@@ -98,9 +98,11 @@ public class RoomServiceImpl implements RoomService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Room not found with id: " + id));
 
-        room.setAvailable(status);
+        room.setIsAvailable(status);   // ✅ correct setter
         return roomRepo.save(room);
     }
+    
+    
 
     // DELETE
     @Override
