@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface ReservationService {
 
-    Reservation createReservation(Reservation reservation);
+    Reservation createReservation(Reservation reservation, String username);
 
     List<Reservation> getAllReservations();
+
+    List<Reservation> getReservationsForUser(String username);
+
+    Reservation getReservationForUser(Long id, String username);
 
     Reservation getReservationById(Long id);
 

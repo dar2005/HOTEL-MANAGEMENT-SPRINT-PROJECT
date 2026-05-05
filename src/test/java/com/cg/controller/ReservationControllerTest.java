@@ -1,4 +1,3 @@
-// ReservationControllerTest.java
 package com.cg.controller;
 
 import com.cg.entity.Reservation;
@@ -9,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -28,12 +28,14 @@ class ReservationControllerTest {
     @Test
     void testCreateReservation() {
         Reservation reservation = new Reservation();
-        when(reservationService.createReservation(reservation)).thenReturn(reservation);
+        Principal principal = () -> "shubh";
 
-        Reservation result = reservationController.createReservation(reservation);
+        when(reservationService.createReservation(reservation, "shubh")).thenReturn(reservation);
+
+        Reservation result = reservationController.createReservation(reservation, principal);
 
         assertEquals(reservation, result);
-        verify(reservationService, times(1)).createReservation(reservation);
+        verify(reservationService, times(1)).createReservation(reservation, "shubh");
     }
 
     @Test
@@ -45,6 +47,32 @@ class ReservationControllerTest {
 
         assertEquals(2, result.size());
         verify(reservationService, times(1)).getAllReservations();
+    }
+
+    @Test
+    void testGetMyReservations() {
+        Principal principal = () -> "shubh";
+        List<Reservation> list = List.of(new Reservation());
+
+        when(reservationService.getReservationsForUser("shubh")).thenReturn(list);
+
+        List<Reservation> result = reservationController.getMyReservations(principal);
+
+        assertEquals(1, result.size());
+        verify(reservationService).getReservationsForUser("shubh");
+    }
+
+    @Test
+    void testGetMyReservationById() {
+        Principal principal = () -> "shubh";
+        Reservation reservation = new Reservation();
+
+        when(reservationService.getReservationForUser(1L, "shubh")).thenReturn(reservation);
+
+        Reservation result = reservationController.getMyReservationById(1L, principal);
+
+        assertEquals(reservation, result);
+        verify(reservationService).getReservationForUser(1L, "shubh");
     }
 
     @Test
@@ -89,7 +117,7 @@ class ReservationControllerTest {
 
     @Test
     void testGetByCheckInDate() {
-        LocalDate date = LocalDate.of(2026,5,1);
+        LocalDate date = LocalDate.of(2026, 5, 1);
         List<Reservation> list = List.of(new Reservation());
 
         when(reservationService.getReservationsByCheckInDate(date)).thenReturn(list);

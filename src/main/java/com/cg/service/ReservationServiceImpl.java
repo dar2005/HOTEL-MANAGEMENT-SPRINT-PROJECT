@@ -2,9 +2,12 @@ package com.cg.service;
 
 import com.cg.entity.Reservation;
 import com.cg.entity.Room;
+import com.cg.entity.User;
+import com.cg.exception.ConflictException;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.repo.ReservationRepository;
 import com.cg.repo.RoomRepository;
+import com.cg.repo.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,22 +24,61 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public Reservation createReservation(Reservation reservation) {
+    public Reservation createReservation(Reservation reservation, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Long roomId = reservation.getRoom().getRoomId();
 
         Room room = roomRepository.findById(roomId)
-            .orElseThrow(() -> new RuntimeException("Room not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Room not found"));
+
+        if (Boolean.FALSE.equals(room.getIsAvailable())) {
+            throw new ConflictException("Room is already booked");
+        }
 
         reservation.setRoom(room);
+        reservation.setGuestEmail(user.getEmail());
+        if (reservation.getGuestName() == null || reservation.getGuestName().trim().isEmpty()) {
+            reservation.setGuestName(user.getUsername());
+        }
 
-        return reservationRepository.save(reservation);
+        Reservation savedReservation = reservationRepository.save(reservation);
+        room.setIsAvailable(false);
+        roomRepository.save(room);
+
+        return savedReservation;
     }
 
     @Override
     public List<Reservation> getAllReservations() {
         return reservationRepository.findAll();
+    }
+
+    @Override
+    public List<Reservation> getReservationsForUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        return reservationRepository.findByGuestEmail(user.getEmail());
+    }
+
+    @Override
+    public Reservation getReservationForUser(Long id, String username) {
+        Reservation reservation = getReservationById(id);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        if (reservation.getGuestEmail() == null ||
+                !reservation.getGuestEmail().equalsIgnoreCase(user.getEmail())) {
+            throw new ResourceNotFoundException("Reservation not found");
+        }
+
+        return reservation;
     }
 
     @Override
@@ -72,6 +114,12 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Reservation not found"));
+
+        Room room = reservation.getRoom();
+        if (room != null) {
+            room.setIsAvailable(true);
+            roomRepository.save(room);
+        }
 
         reservationRepository.delete(reservation);
     }

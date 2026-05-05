@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,10 +23,11 @@ public class ReservationController {
 
     @PostMapping
     public Reservation createReservation( @Valid
-            @RequestBody Reservation reservation) {
+            @RequestBody Reservation reservation,
+            Principal principal) {
 
         return reservationService
-                .createReservation(reservation);
+                .createReservation(reservation, principal.getName());
     }
    
     @GetMapping
@@ -33,6 +35,22 @@ public class ReservationController {
 
         return reservationService
                 .getAllReservations();
+    }
+
+    @GetMapping("/my")
+    public List<Reservation> getMyReservations(Principal principal) {
+
+        return reservationService
+                .getReservationsForUser(principal.getName());
+    }
+
+    @GetMapping("/my/{id}")
+    public Reservation getMyReservationById(
+            @PathVariable Long id,
+            Principal principal) {
+
+        return reservationService
+                .getReservationForUser(id, principal.getName());
     }
     
     @GetMapping("/{id}")

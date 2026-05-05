@@ -12,6 +12,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.cg.security.JwtFilter;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 public class SecurityConfig {
 
@@ -22,39 +24,32 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-        	.cors(cors -> cors.configure(http)) 
+            .cors(cors -> cors.configure(http))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
 
-               
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs/**"
                 ).permitAll()
 
-                
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                
                 .requestMatchers(HttpMethod.GET, "/rooms/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/hotels/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
-
-              
                 .requestMatchers(HttpMethod.GET, "/roomtypes/**").permitAll()
 
-
-               
                 .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/reviews/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/reviews/**").hasAnyRole("USER", "ADMIN")
 
-                .requestMatchers("/api/reservations/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/api/payments/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/api/reservations/**").authenticated()
+                .requestMatchers("/api/payments/**").authenticated()
 
-               
                 .requestMatchers(HttpMethod.POST, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/rooms/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/rooms/**").hasRole("ADMIN")
@@ -63,14 +58,16 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/roomtypes/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/roomtypes/**").hasRole("ADMIN")
 
-                
                 .requestMatchers(HttpMethod.POST, "/hotels/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/hotels/**").hasRole("ADMIN")
-
 
                 .requestMatchers("/api/amenities/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(
+                    (request, response, authException) ->
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            ))
             .httpBasic(httpBasic -> httpBasic.disable())
             .formLogin(form -> form.disable());
 
