@@ -21,5 +21,4 @@ public interface HotelService {
 
     HotelResponseDTO updateHotel(Long id, HotelRequestDTO dto);
     
-    void deleteHotel(Long id);
 }
