@@ -20,4 +20,6 @@ public interface HotelService {
     List<HotelResponseDTO> searchByLocationAndName(String location, String name);
 
     HotelResponseDTO updateHotel(Long id, HotelRequestDTO dto);
+    
+    void deleteHotel(Long id);
 }

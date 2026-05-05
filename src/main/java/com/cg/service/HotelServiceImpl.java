@@ -99,4 +99,12 @@ public class HotelServiceImpl implements HotelService {
                 hotel.getDescription()
         );
     }
+
+	@Override
+	public void deleteHotel(Long id) {
+		Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with id: " + id));
+
+        hotelRepository.delete(hotel);
+	}
 }
