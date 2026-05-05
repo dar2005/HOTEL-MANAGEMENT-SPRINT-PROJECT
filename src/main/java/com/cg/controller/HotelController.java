@@ -63,9 +63,4 @@ public class HotelController {
             @Valid @RequestBody HotelRequestDTO dto) {
         return ResponseEntity.ok(hotelService.updateHotel(id, dto));
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteHotel(@PathVariable Long id) {
-        hotelService.deleteHotel(id);
-        return ResponseEntity.ok("Hotel deleted successfully");
-    }
 }
