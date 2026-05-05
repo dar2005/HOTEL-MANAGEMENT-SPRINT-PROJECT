@@ -91,6 +91,14 @@ public class HotelServiceImpl implements HotelService {
         return mapToDTO(updated);
     }
 
+    @Override
+    public void deleteHotel(Long id) {
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with id: " + id));
+
+        hotelRepository.delete(hotel);
+    }
+
     private HotelResponseDTO mapToDTO(Hotel hotel) {
         return new HotelResponseDTO(
                 hotel.getHotelId(),

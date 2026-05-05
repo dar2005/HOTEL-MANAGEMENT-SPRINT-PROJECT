@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReviewService {
 
-    ReviewResponseDTO createReview(ReviewRequestDTO dto);
+    ReviewResponseDTO createReview(ReviewRequestDTO dto, String username);
 
     List<ReviewResponseDTO> getAllReviews();
 

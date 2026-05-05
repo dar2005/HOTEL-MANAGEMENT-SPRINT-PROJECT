@@ -23,26 +23,37 @@ public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    // REGISTER
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         return authService.register(user);
     }
 
-    // LOGIN (FIXED)
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest request) {
 
-        // ✅ Validate user (your existing logic)
         User user = authService.login(request);
 
-        // ✅ Load full UserDetails (IMPORTANT)
         UserDetails userDetails =
                 userDetailsService.loadUserByUsername(user.getUsername());
 
-        // ✅ Generate token with roles
         String token = jwtUtil.generateToken(userDetails);
 
-        return new AuthResponse(token);
+        String role = cleanRoleForFrontend(user.getRole());
+
+        return new AuthResponse(token, user.getUsername(), user.getEmail(), role);
+    }
+
+    private String cleanRoleForFrontend(String role) {
+        if (role == null || role.trim().isEmpty()) {
+            return "USER";
+        }
+
+        role = role.trim().toUpperCase();
+
+        if (role.startsWith("ROLE_")) {
+            role = role.substring(5);
+        }
+
+        return role;
     }
 }
